@@ -1,12 +1,12 @@
 package main
 
 import (
-	ch "ch01"
-	"fmt"
+	ch "ch02"
 )
 
 func main() {
-	fmt.Println("Hello day2face!")
-
+	// 题目的原本调用
 	ch.MainCall1()
+	// 修正后的调用
+	ch.MainCall2()
 }
