@@ -1,12 +1,14 @@
 package main
 
 import (
-	ch "ch02"
+	ch "ch03"
 )
 
 func main() {
-	// 题目的原本调用
+	// 试题1
 	ch.MainCall1()
-	// 修正后的调用
+	// 试题2
 	ch.MainCall2()
+	// 试题3
+	ch.MainCall3()
 }
