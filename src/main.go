@@ -1,7 +1,7 @@
 package main
 
 import (
-	ch "ch005"
+	ch "ch006"
 )
 
 func main() {
