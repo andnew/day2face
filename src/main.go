@@ -1,12 +1,16 @@
 package main
 
 import (
-	ch "ch018"
+	ch19 "ch019"
+	ch20 "ch020"
+	"fmt"
 )
 
 func main() {
 	// 试题1
-	ch.MainCall1()
+	ch19.MainCall1()
+	fmt.Println("==================")
+	ch20.MainCall1()
 	// 常量示例
 	//ch.MainCall2()
 	// 包级别执行
