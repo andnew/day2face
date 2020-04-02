@@ -1,12 +1,12 @@
 package main
 
-import ch "ch105"
+import ch "ch108"
 
 func main() {
-	// 失控的通道
+	// 面向对象编程
 	ch.MainCall1()
 
-	// 对示例的失控通道控制,设置触发条件
-	ch.MainCall2()
+	// 结构体中嵌入接口
+	ch.MainCall3()
 
 }
