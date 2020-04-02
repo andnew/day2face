@@ -17,6 +17,8 @@ require (
 	ch018 v0.0.0 //indirect
 	ch019 v0.0.0 //indirect
 	ch020 v0.0.0 //indirect
+	ch106 v0.0.0 //indirect
+	ch107 v0.0.0 //indirect
 )
 
 replace (
@@ -34,4 +36,6 @@ replace (
 	ch018 v0.0.0 => ./ch018
 	ch019 v0.0.0 => ./ch019
 	ch020 v0.0.0 => ./ch020
+	ch106 v0.0.0 => ./ch106
+	ch107 v0.0.0 => ./ch107
 )
