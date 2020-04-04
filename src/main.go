@@ -1,6 +1,6 @@
 package main
 
-import ch "ch102"
+import ch "ch101"
 
 func main() {
 	// 示例1
