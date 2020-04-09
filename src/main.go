@@ -1,16 +1,22 @@
 package main
 
-func alwaysFalse() bool {
-	return false
+import (
+	"fmt"
+	"testing"
+)
+
+func hello(num ...int) {
+	num[0] = 18
+}
+func Test13(t *testing.T) {
+	i := []int{5, 6, 7}
+	hello(i...)
+	fmt.Println(i[0])
 }
 func main() {
-	switch alwaysFalse(); {
-	case true:
-		println(true)
-	case false:
-		println(false)
-	}
+	t := &testing.T{}
+	Test13(t)
 }
 
 // 总结&分析
-// 可以编译通过，输出：true。知识点：Go 代码断行规则。
+// 可变函数是指针传递
