@@ -1,41 +1,18 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+import "fmt"
 
 func main() {
+	c := &ConfigOne{}
+	c.String()
+}
 
-	// 方式一
-	//wg := sync.WaitGroup{}
-	//
-	//for i := 0; i < 5; i++ {
-	//	wg.Add(1)
-	//	go func(i int) {
-	//		fmt.Printf("i:%d\n", i)
-	//		wg.Done()
-	//	}(i)
-	//}
+type ConfigOne struct {
+	Daemon string
+}
 
-	//wg.Wait()
-
-	//fmt.Println("exit")
-
-	// 方式二
-	wg := &sync.WaitGroup{}
-
-	for i := 0; i < 5; i++ {
-		wg.Add(1)
-		go func(wg *sync.WaitGroup, i int) {
-			fmt.Printf("i:%d\n", i)
-			wg.Done()
-		}(wg, i)
-	}
-
-	wg.Wait()
-
-	fmt.Println("exit")
+func (c *ConfigOne) String() string {
+	return fmt.Sprintf("print: %v", c)
 }
 
 // 总结&分析
