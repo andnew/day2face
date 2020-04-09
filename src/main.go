@@ -2,22 +2,19 @@ package main
 
 import "fmt"
 
+type TimesMatcher struct {
+	base int
+}
+
+func NewTimesMatcher(base int) TimesMatcher  {
+	return TimesMatcher{base:base}
+}
+
 func main() {
-	count := 0
-	for i := range [256]struct{}{} {
-		m, n := byte(i), int8(i)
-		//fmt.Println("m = ", m, " , n = ", n, " , i = ", i)
-		if n == -n {
-			fmt.Println("n-----------", n, "---------------")
-			count++
-		}
-		if m == -m {
-			fmt.Println("m-----------", m, "---------------")
-			count++
-		}
-	}
-	fmt.Println(count) // 4
+	p := NewTimesMatcher(3)
+	fmt.Println(p)
 }
 
 // 总结&分析
-// 知识点：数值溢出。当 i 的值为 0、128 是会发生相等情况，注意 byte 是 uint8 的别名。
+// 知识点：Go语言的内存回收机制规定，只要有一个指针指向引用一个变量，那么这个变量就不会被释放（内存逃逸），
+// 因此在 Go 语言中返回函数参数或临时变量是安全的。
