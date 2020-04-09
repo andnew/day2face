@@ -1,18 +1,41 @@
 package main
 
-import "fmt"
-
-type TimesMatcher struct {
-	base int
-}
-
-func NewTimesMatcher(base int) TimesMatcher  {
-	return TimesMatcher{base:base}
-}
+import (
+	"fmt"
+	"sync"
+)
 
 func main() {
-	p := NewTimesMatcher(3)
-	fmt.Println(p)
+
+	// 方式一
+	//wg := sync.WaitGroup{}
+	//
+	//for i := 0; i < 5; i++ {
+	//	wg.Add(1)
+	//	go func(i int) {
+	//		fmt.Printf("i:%d\n", i)
+	//		wg.Done()
+	//	}(i)
+	//}
+
+	//wg.Wait()
+
+	//fmt.Println("exit")
+
+	// 方式二
+	wg := &sync.WaitGroup{}
+
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go func(wg *sync.WaitGroup, i int) {
+			fmt.Printf("i:%d\n", i)
+			wg.Done()
+		}(wg, i)
+	}
+
+	wg.Wait()
+
+	fmt.Println("exit")
 }
 
 // 总结&分析
