@@ -1,19 +1,21 @@
 package main
 
-import "fmt"
-
-type Slice []int
-
-func NewSlice() Slice {
-	return make(Slice, 0)
-}
-func (s *Slice) Add(elem int) *Slice {
-	*s = append(*s, elem)
-	fmt.Print(elem)
-	return s
-}
 func main() {
-	s := NewSlice()
-	defer s.Add(1).Add(2)
-	s.Add(3)
+	println(DeferTest1(1)) // 4
+	println(DeferTest2(1)) // 3
 }
+func DeferTest1(i int) (r int) {
+	r = i
+	defer func() {
+		r += 3
+	}()
+	return r
+}
+func DeferTest2(i int) (r int) {
+	defer func() {
+		r += i
+	}()
+	return 2
+}
+
+//
