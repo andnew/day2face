@@ -1,21 +1,19 @@
 package main
 
-func main() {
-	println(DeferTest1(1)) // 4
-	println(DeferTest2(1)) // 3
-}
-func DeferTest1(i int) (r int) {
-	r = i
-	defer func() {
-		r += 3
-	}()
-	return r
-}
-func DeferTest2(i int) (r int) {
-	defer func() {
-		r += i
-	}()
-	return 2
+func test(x int) (func(), func()) {
+	return func() {
+			println(x)
+			x += 10
+		}, func() {
+			println(x)
+		}
 }
 
-//
+func main() {
+	a, b := test(100)
+	a()
+	b()
+}
+
+// 总结&分析
+// 闭包引用相同变量。
