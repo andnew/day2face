@@ -1,17 +1,45 @@
 package main
 
-var f = func(i int) {
-	print("x")
+import "fmt"
+
+type Slice []int
+
+func NewSlice() Slice {
+	return make(Slice, 0)
+}
+func (s *Slice) Add(elem int) *Slice {
+	*s = append(*s, elem)
+	fmt.Print(elem)
+	return s
+}
+
+type Orange struct {
+	Quantity int
+}
+
+func (o *Orange) Increase(n int) {
+	o.Quantity += n
+}
+
+func (o *Orange) Decrease(n int) {
+	o.Quantity -= n
+}
+
+func (o *Orange) String() string {
+	return fmt.Sprintf("---%#v", o.Quantity)
 }
 
 func main() {
-	f := func(i int) {
-		print(i)
-		if i > 0 {
-			f(i - 1)
-		}
-	}
-	f(10)
+	//s := NewSlice()
+	//defer func() {
+	//	s.Add(1).Add(2)
+	//}()
+	//s.Add(3)
+
+	var orange Orange
+	orange.Increase(10)
+	orange.Decrease(5)
+	fmt.Println(orange)
 }
 
 // 总结&分析
