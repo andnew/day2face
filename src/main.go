@@ -1,21 +1,17 @@
 package main
 
-func test() []func() {
-	var funs []func()
-	for i := 0; i < 2; i++ {
-		j := i
-		funs = append(funs, func() {
-			println(&j, j)
-		})
-	}
-	return funs
+var f = func(i int) {
+	print("x")
 }
 
 func main() {
-	funs := test()
-	for _, f := range funs {
-		f()
+	f := func(i int) {
+		print(i)
+		if i > 0 {
+			f(i - 1)
+		}
 	}
+	f(10)
 }
 
 // 总结&分析
