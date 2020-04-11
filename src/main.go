@@ -1,31 +1,26 @@
 package main
 
-import (
-	"fmt"
-	"runtime/debug"
-)
+import "fmt"
 
-func f(n int) (r int) {
-	defer func() {
-		r += n
-		if err := recover(); err != nil {
-			fmt.Println("9999")
-			debug.PrintStack()
-		}
-	}()
+var p *int
 
-	var f func()
+func foo() (*int, error) {
+	var i int = 5
+	return &i, nil
+}
 
-	//defer f() // 未定义，引发异常
-	f = func() {
-		fmt.Println("前======", r)
-		r += 2
-		fmt.Println("后======", r)
-	}
-	defer f()
-	return n + 1
+func bar() {
+	//use p
+	fmt.Println(*p)
 }
 
 func main() {
-	fmt.Println(f(3))
+	var err error
+	p, err = foo()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	bar()
+	fmt.Println(*p)
 }
