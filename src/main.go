@@ -1,30 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
-const i = 100
-
-var j = 123
-
-func main1() {
-	fmt.Println(&j, j)
-	//fmt.Println(&i, i) //cannot take the address of i
-}
-
-func GetValue(m map[int]string, id int) (string, bool) {
-
-	if _, exist := m[id]; exist {
-		return "exist", true
-	}
-	return "", false // 正确的代码 return "" , false
-}
 func main() {
-	intmap := map[int]string{
-		1: "a",
-		2: "b",
-		3: "c",
+	runtime.GOMAXPROCS(1)
+	int_chan := make(chan int, 1)
+	string_chan := make(chan string, 1)
+	int_chan <- 1
+	string_chan <- "hello"
+	select {
+	case value := <-int_chan:
+		fmt.Println(value)
+	case value := <-string_chan:
+		panic(value)
 	}
-
-	v, err := GetValue(intmap, 3)
-	fmt.Println(v, err)
 }
+
+//select 会随机选择一个可用通道做收发操作，所以可能触发异常，也可能不会
