@@ -2,40 +2,27 @@ package main
 
 import "fmt"
 
-type N int
-
-func (n *N) test() {
-	fmt.Println(*n)
+type T struct {
+	x int
+	y *int
 }
 
 func main1() {
-	var n N = 10
-	p := &n
+	i := 20
+	t := T{10, &i}
+	p := &t.x
+	*p++
+	*p--
+	t.y = p
+	fmt.Println(*t.y)
+}
 
-	n++ // 11
-	f1 := n.test
-
-	n++ //12
-	f2 := p.test
-
-	n++            //13
-	fmt.Println(n) //13
-
-	f1() //13
-	f2() //13
+func main() {
+	x := make([]int, 2, 10)
+	_ = x[6:10]
+	_ = x[6:]
+	_ = x[2:]
 }
 
 // 总结&分析
-// 方法值。当目标方法的接收者是指针类型时，那么被复制的就是指针。
-
-func main() {
-	var m map[int]bool // nil
-	_ = m[123]
-	var p *[5]string // nil
-	for range p {
-		_ = len(p)
-	}
-	var s []int // nil
-	_ = s[:]
-	s, s[0] = []int{1, 2}, 9
-}
+// 截取符号 [i:j]，如果 j 省略，默认是原切片或者数组的长度，x 的长度是 2，小于起始下标 6 ，所以 panic。
