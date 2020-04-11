@@ -1,22 +1,18 @@
 package main
 
-//type foo struct {
-//	bar int
-//}
-//
-//func main() {
-//	var f foo
-//	f.bar, tmp = 1, 2
-//}
-// 总结&分析
-// := 操作符不能用于结构体字段赋值。
-// 编译报错 non-name f.bar on left side of :=
+import "fmt"
 
-//func main() {
-//	fmt.Println(~2)
-//}
+func main() {
+	x := 1
+	fmt.Println(x) // 1
+	{
+		fmt.Println(x)    // 1
+		i, x := 2, 2      // i = 2 , x = 2
+		fmt.Println(i, x) // 2 , 2
+	}
+	fmt.Println(x) // print ?  1
+}
+
 // 总结&分析
-// 很多语言都是采用 ~  作为按位取反运算符，Go 里面采用的是 ^ 。
-// 按位取反之后返回一个每个 bit 位都取反的数，对于有符号的整数来说，
-// 是按照补码进行取反操作的（快速计算方法：对数 a 取反，结果为 -(a+1) ），对于无符号整数来说就是按位取反。
-// 编译报错 Unexpected '~'
+// 变量隐藏。使用变量简短声明符号 := 时，如果符号左边有多个变量，只需要保证至少有一个变量是新声明的，并对已定义的变量尽进行赋值操作。
+// 但如果出现作用域之后，就会导致变量隐藏的问题
