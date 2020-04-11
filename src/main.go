@@ -2,31 +2,28 @@ package main
 
 import "fmt"
 
-type X struct{}
+//func main() {
+//	var fn1 = func() {}
+//	var fn2 = func() {}
+//
+//	if fn1 != fn2 {
+//		println("fn1 not equal fn2")
+//	}
+//}
+// Invalid operation: fn1 != fn2 (operator != not defined on func())
 
-func (x *X) test() {
-	println(x)
-}
-
-func main1() {
-	var a *X
-	a.test()
-
-	(&X{}).test()
-}
-func main2() {
-	var a *X
-	a.test() // 相当于 test(nil)
-
-	var x = X{}
-	x.test()
+type T struct {
+	n int
 }
 
 func main() {
-	x := map[string]string{"one": "a", "two": "", "three": "c"}
-
-	//if v := x["two"]; v == "" {
-	if _, ok := x["two"]; !ok {
-		fmt.Println("no entry")
-	}
+	m := make(map[int]T)
+	t := T{1}
+	m[0] = t
+	fmt.Println(m[0].n)
 }
+
+// 总结&分析
+// 编译错误：Cannot assign to m[0].n
+// map[key]struct 中 struct 是不可寻址的，所以无法直接赋值。
+//
