@@ -2,47 +2,20 @@ package main
 
 import "fmt"
 
-var gvar int
+var x = []int{2: 2, 3, 0: 1}
 
 func main1() {
-	var one int
-	two := 2
-	var three int
-	three = 3
-
-	func(unused string) {
-		fmt.Println("Unused arg. No compile error")
-	}("what?")
-
-	fmt.Println(one, two, three)
+	fmt.Println(x)
 }
 
-// 变量声明与使用
+// 执行结果 [1 0 2 3]
 
-//type ConfigOne struct {
-//	Daemon string
-//}
-//
-//func (c *ConfigOne) String() string {
-//	return fmt.Sprintf("print: %v", c)
-//}
-//
-//func main() {
-//	c := &ConfigOne{}
-//	c.String()
-//}
-
+func incr(p *int) int {
+	*p++
+	return *p
+}
 func main() {
-	var a = []int{1, 2, 3, 4, 5}
-	var r = make([]int, 0)
-
-	for i, v := range a {
-		if i == 0 {
-			a = append(a, 6, 7)
-		}
-
-		r = append(r, v)
-	}
-
-	fmt.Println(r, a)
+	v := 1
+	incr(&v)
+	fmt.Println(v) // 2
 }
