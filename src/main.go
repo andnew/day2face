@@ -2,21 +2,22 @@ package main
 
 import "fmt"
 
-//func main() {
-//	x := []int{
-//		1,
-//		2,
-//	}
-//	_ = x
-//}
-
-func test(x byte) {
-	fmt.Println(x)
+type info struct {
+	result int
 }
+
+func work() (int, error) {
+	return 13, nil
+}
+
 func main() {
-	var a byte = 0x11
-	var b uint8 = a
-	var c uint8 = a + b
-	test(c)
-	fmt.Println(a, b)
+	var data info
+	var err error
+	data.result, err = work()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Printf("info: %+v\n", data)
 }
