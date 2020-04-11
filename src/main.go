@@ -1,52 +1,46 @@
 package main
 
-//func main() {
-//
-//loop:
-//	fmt.Println("--------")
-//
-//	for i := 0; i < 10; i++ {
-//	loop:
-//		println(i)
-//	}
-//	goto loop
+import "fmt"
+
+//type T struct {
+//	n int
 //}
-
-// 总结&分析
-// 编译报错 标签，不可以放在for内
-// goto 不能跳转到其他函数或者内层代码。
-
-//func main() {
-//	/* 定义局部变量 */
-//	var a int = 10
 //
-//	/* 循环 */
-//LOOP:
-//	for a < 20 {
-//		if a == 15 {
-//			/* 跳过迭代 */
-//			a = a + 1
-//			goto LOOP
+//func main() {
+//	ts := [2]T{}
+//	for i := range ts[:] {
+//		switch i {
+//		case 0:
+//			ts[1].n = 9
+//		case 1:
+//			fmt.Print(ts[i].n, " ")
 //		}
-//		fmt.Printf("a的值为 : %d\n", a)
-//		a++
 //	}
+//	fmt.Print(ts)
 //}
 
 // 总结&分析
-// goto 与 标签组合 效果 continue 一致，跳出循环
+// 切片 指针
+// for-range 切片时使用的是切片的副本，但不会复制底层数组，换句话说，此副本切片与原数组共享底层数组。
+
+type T struct {
+	n int
+}
 
 func main() {
-	x := []int{0, 1, 2}
-	y := [3]*int{}
-	for i, v := range x {
-		defer func() {
-			print(v)
-		}()
-		y[i] = &v
+	ts := [2]T{}
+	for i := range ts[:] {
+		switch t := &ts[i]; i {
+		case 0:
+			t.n = 3
+			ts[1].n = 9
+		case 1:
+			fmt.Print(t.n, " ")
+		}
 	}
-	print(*y[0], *y[1], *y[2])
+	fmt.Print(ts)
 }
 
 // 总结&分析
-// 考查的知识点 有 defer 匿名函数 切片 指针
+// for 切片 指针
+// 9 [{3} {9}]
