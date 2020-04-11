@@ -2,24 +2,29 @@ package main
 
 import "fmt"
 
-type User struct{}
-type User1 User
-type User2 = User
+const i = 100
 
-func (i User1) m1() {
-	fmt.Println("m1")
-}
-func (i User) m2() {
-	fmt.Println("m2")
+var j = 123
+
+func main1() {
+	fmt.Println(&j, j)
+	//fmt.Println(&i, i) //cannot take the address of i
 }
 
+func GetValue(m map[int]string, id int) (string, bool) {
+
+	if _, exist := m[id]; exist {
+		return "exist", true
+	}
+	return "", false // 正确的代码 return "" , false
+}
 func main() {
-	var i1 User1
-	var i2 User2
-	i1.m1()
-	i2.m2()
-}
+	intmap := map[int]string{
+		1: "a",
+		2: "b",
+		3: "c",
+	}
 
-// 执行结果
-//m1
-//m2
+	v, err := GetValue(intmap, 3)
+	fmt.Println(v, err)
+}
