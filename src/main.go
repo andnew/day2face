@@ -1,22 +1,25 @@
 package main
 
-import (
-	"fmt"
-	"runtime"
-)
+import "fmt"
 
 func main() {
-	runtime.GOMAXPROCS(1)
-	int_chan := make(chan int, 1)
-	string_chan := make(chan string, 1)
-	int_chan <- 1
-	string_chan <- "hello"
-	select {
-	case value := <-int_chan:
-		fmt.Println(value)
-	case value := <-string_chan:
-		panic(value)
-	}
+	var a Integer = 1
+	var b Integer = 2
+	var i interface{} = &a
+	sum := i.(*Integer).Add(b)
+	fmt.Println(sum)
 }
 
-//select 会随机选择一个可用通道做收发操作，所以可能触发异常，也可能不会
+type Integer int
+
+//func (a Integer) Add(b Integer) Integer {
+//	return a + b
+//}
+
+func (a *Integer) Add(b Integer) Integer {
+	return *a + b
+}
+
+// 总结&分析
+// 值接收者的方法可以使用值或者指针调用
+// 对于指针接受者的方法，用一个指针或者一个可取得地址的值来调用都是合法的。
