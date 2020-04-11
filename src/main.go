@@ -2,27 +2,36 @@ package main
 
 import "fmt"
 
-type T struct {
-	x int
-	y *int
-}
-
 func main1() {
-	i := 20
-	t := T{10, &i}
-	p := &t.x
-	*p++
-	*p--
-	t.y = p
-	fmt.Println(*t.y)
-}
-
-func main() {
-	x := make([]int, 2, 10)
-	_ = x[6:10]
-	_ = x[6:]
-	_ = x[2:]
+	var x interface{}
+	var y interface{} = []int{3, 5}
+	_ = x == x
+	_ = x == y
+	_ = y == y // 发生panic
 }
 
 // 总结&分析
-// 截取符号 [i:j]，如果 j 省略，默认是原切片或者数组的长度，x 的长度是 2，小于起始下标 6 ，所以 panic。
+// 因为两个比较值的动态类型为同一个不可比较类型。
+
+var o = fmt.Print
+
+func main() {
+	c := make(chan int, 1)
+	for range [3]struct{}{} {
+		select {
+		default:
+			o(1)
+		case <-c:
+			o(2)
+			c = nil
+		case c <- 1:
+			o(3)
+		}
+	}
+}
+
+// 总结&分析
+// 第一次循环，写操作已经准备好，执行 o(3)，输出 3；
+// 第二次，读操作准备好，执行 o(2)，输出 2 并将 c 赋值为 nil；
+// 第三次，由于 c 为 nil，走的是 default 分支，输出 1。
+// 执行结果是 321
