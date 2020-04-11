@@ -25,9 +25,9 @@ package main
 //string abc
 
 func main() {
-	var x string = nil
-
-	if x == nil {
-		x = "default"
-	}
+	//var x string = nil
+	//
+	//if x == nil {
+	//	x = "default"
+	//}
 }
