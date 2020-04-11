@@ -2,54 +2,42 @@ package main
 
 import "fmt"
 
-type Foo struct {
-	bar string
+func change(s ...int) {
+	fmt.Println("len = ", len(s), " , cap ", cap(s), " s = ", s)
+	s = append(s, 3)
+	fmt.Println("len = ", len(s), " , cap ", cap(s), " s = ", s)
 }
 
 func main1() {
-	s1 := []Foo{
-		{"A"},
-		{"B"},
-		{"C"},
-	}
-	s2 := make([]*Foo, len(s1))
-	for i, value := range s1 {
-		//fmt.Printf("%p\n", &value)
-		s2[i] = &value
-	}
-	fmt.Println(s1[0], s1[1], s1[2])
-	fmt.Println(s2[0], s2[1], s2[2])
+	slice := make([]int, 5, 5)
+	slice[0] = 1
+	slice[1] = 2
+	change(slice...)
+	fmt.Println(slice)
+	change(slice[0:2]...)
+	fmt.Println(slice)
 }
 
 // 总结&分析
-// 值接收者的方法可以使用值或者指针调用
-// 对于指针接受者的方法，用一个指针或者一个可取得地址的值来调用都是合法的。
-// 修复代码
-// for i := range s1 {
-//    s2[i] = &s1[i]
-// }
+// 执行结果
+// len =  5  , cap  5  s =  [1 2 0 0 0]
+// len =  6  , cap  10  s =  [1 2 0 0 0 3]
+// [1 2 0 0 0]
+// len =  2  , cap  5  s =  [1 2]
+// len =  3  , cap  5  s =  [1 2 3]
+// [1 2 3 0 0]
 
 func main() {
+	var a = []int{1, 2, 3, 4, 5}
+	var r [5]int
 
-	var m = map[string]int{
-		"A": 21,
-		"B": 22,
-		"C": 23,
-	}
-	for {
-		counter := 0
-		for k, v := range m {
-			if counter == 0 {
-				delete(m, "A")
-			}
-			counter++
-			fmt.Println(k, v)
+	for i, v := range a {
+		if i == 0 {
+			a[1] = 12 // 1，12，3, 4, 5
+			a[2] = 13 // 1，12，13, 4, 5
 		}
-		fmt.Println("counter is ", counter, ", m is ", m)
-
-		if counter == 2 {
-			break
-		}
-
+		r[i] = v // 1, 12, 13, 4, 5
 	}
+	fmt.Println("r = ", r)
+	fmt.Println("a = ", a)
 }
