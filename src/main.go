@@ -1,37 +1,33 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
-//type T struct {
-//	ls []int
-//}
-//
-//func foo(t T) {
-//	t.ls[0] = 100
-//}
 //func main() {
-//	var t = T{
-//		ls: []int{1, 2, 3},
+//	var ch chan int
+//	select {
+//	case v, ok := <-ch:
+//		println(v, ok)
+//	default:
+//		println("default")
 //	}
-//	foo(t)
-//	fmt.Println(t.ls[0])
 //}
 
-func main() {
-	isMatch := func(i int) bool {
-		switch i {
-		case 1:
-		case 2:
-			return true
-		}
-		return false
-	}
-
-	fmt.Println(isMatch(1))
-	fmt.Println(isMatch(2))
+type People struct {
+	Name string `json:"name"`
 }
 
-// 总结&分析
-// 执行结果
-//false
-//true
+func main() {
+	js := `{
+         "name":"seekload"
+    }`
+	var p People
+	err := json.Unmarshal([]byte(js), &p)
+	if err != nil {
+		fmt.Println("err: ", err)
+		return
+	}
+	fmt.Println(p)
+}
