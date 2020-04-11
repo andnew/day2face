@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 //type foo struct {
 //	bar int
 //}
@@ -14,9 +12,9 @@ import "fmt"
 // := 操作符不能用于结构体字段赋值。
 // 编译报错 non-name f.bar on left side of :=
 
-func main() {
-	fmt.Println(~2)
-}
+//func main() {
+//	fmt.Println(~2)
+//}
 // 总结&分析
 // 很多语言都是采用 ~  作为按位取反运算符，Go 里面采用的是 ^ 。
 // 按位取反之后返回一个每个 bit 位都取反的数，对于有符号的整数来说，
