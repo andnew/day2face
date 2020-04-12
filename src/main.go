@@ -2,20 +2,43 @@ package main
 
 import "fmt"
 
-func main1() {
+type S struct {
+}
 
-	s1 := []int{1, 2, 3}
-	s2 := s1[1:]             // {2, 3}
-	s2[1] = 4                // {2, 4}
-	fmt.Println(s1)          //{1,2,4}
-	s2 = append(s2, 5, 6, 7) // {1,2,4,5,6,7}
-	fmt.Println(s1)          // {1,2,4}
+func f(x interface{}) {
+}
+
+func g(x *interface{}) {
+}
+
+func main1() {
+	s := S{}
+	p := &s
+	f(s) //A
+	//g(s) //B
+	f(p) //C
+	//g(p) //D
+}
+
+type Person struct {
+	age int
 }
 
 func main() {
-	if a := 1; false {
-	} else if b := 2; false {
-	} else {
-		println(a, b)
-	}
-} // 结果是 1， 2
+	person := &Person{28}
+
+	// 1.
+	defer fmt.Println(person.age) // 28
+
+	// 2.
+	defer func(p *Person) {
+		fmt.Println(p.age) // 28
+	}(person)
+
+	// 3.
+	defer func() {
+		fmt.Println(person.age) // 29
+	}()
+
+	person = &Person{29}
+}
