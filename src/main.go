@@ -2,45 +2,34 @@ package main
 
 import "fmt"
 
-const (
-	a = iota
-	b = iota
-)
-const (
-	name = "name"
-	c    = iota
-	d    = iota
-)
+type MyInt int
+
+func (i MyInt) PrintInt() {
+	fmt.Println(i)
+}
 
 func main1() {
-	fmt.Println(a)
-	fmt.Println(b)
-	fmt.Println(c)
-	fmt.Println(d)
+	var i MyInt = 1
+	i.PrintInt()
 }
 
 type People interface {
-	Show()
+	Speak(string) string
 }
 
 type Student struct{}
 
-func (stu *Student) Show() {
-
+func (stu *Student) Speak(think string) (talk string) {
+	if think == "speak" {
+		talk = "speak"
+	} else {
+		talk = "hi"
+	}
+	return
 }
 
 func main() {
-
-	var s *Student
-	if s == nil {
-		fmt.Println("s is nil")
-	} else {
-		fmt.Println("s is not nil")
-	}
-	var p People = s
-	if p == nil {
-		fmt.Println("p is nil")
-	} else {
-		fmt.Println("p is not nil")
-	}
+	var peo People = &Student{}
+	think := "speak"
+	fmt.Println(peo.Speak(think))
 }
