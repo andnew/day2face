@@ -2,20 +2,30 @@ package main
 
 import "fmt"
 
-// 1.
 func main1() {
-	s := make([]int, 5)
-	s = append(s, 1, 2, 3)
-	fmt.Println(s) //[0 0 0 0 0 1 2 3]
+	//list := new([]int)
+	// 正确的代码
+	list := make([]int, 0)
+	list = append(list, 1)
+	fmt.Println(list)
 }
 
-// 2.
+// 编译报错 Cannot use 'list' (type *[]int) as type []Type
+
+func main2() {
+	s1 := []int{1, 2, 3}
+	s2 := []int{4, 5}
+	s1 = append(s1, s2...)
+	fmt.Println(s1)
+}
+
+// 编译报错  Cannot use 's2' (type []int) as type int
+
+var (
+	size     = 1024
+	max_size = size * 2
+)
+
 func main() {
-	s := make([]int, 0)
-	s = append(s, 1, 2, 3, 4)
-	fmt.Println(s) //[1 2 3 4]
-}
-
-func funcMui(x, y int) (int, error) {
-	return x + y, nil
+	fmt.Println(size, max_size)
 }
