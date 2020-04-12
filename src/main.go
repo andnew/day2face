@@ -2,34 +2,23 @@ package main
 
 import "fmt"
 
-type MyInt int
-
-func (i MyInt) PrintInt() {
-	fmt.Println(i)
-}
-
-func main1() {
-	var i MyInt = 1
-	i.PrintInt()
-}
-
-type People interface {
-	Speak(string) string
-}
-
-type Student struct{}
-
-func (stu *Student) Speak(think string) (talk string) {
-	if think == "speak" {
-		talk = "speak"
-	} else {
-		talk = "hi"
-	}
-	return
-}
-
 func main() {
-	var peo People = &Student{}
-	think := "speak"
-	fmt.Println(peo.Speak(think))
+	a := 1
+	b := 2
+	defer calc("1", a, calc("10", a, b))
+	a = 0
+	defer calc("2", a, calc("20", a, b)) // 20 , 0 , 2 --> 0 , 2
+	b = 1
 }
+
+func calc(index string, a, b int) int {
+	ret := a + b
+	fmt.Println(index, a, b, ret)
+	return ret
+}
+
+// 执行结果
+// 10 1 2 3
+// 20 0 2 2
+//  2 0 2 2
+//  1 1 3 4
