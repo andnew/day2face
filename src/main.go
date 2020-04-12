@@ -3,21 +3,29 @@ package main
 import "fmt"
 
 func main() {
-	defer_call()
+
+	slice := []int{0, 1, 2, 3}
+	m := make(map[int]*int)
+
+	for key, val := range slice {
+		m[key] = &val
+	}
+
+	for k, v := range m {
+		fmt.Println(k, "->", *v)
+	}
 }
 
-func defer_call() {
-	defer func() { fmt.Println("打印前") }()
-	defer func() { fmt.Println("打印中") }()
-	defer func() { fmt.Println("打印后") }()
+// 总结&分析
+// for-range 切片 ，其中for key value 是 内部定义的变量，保持不变
+// 执行结果
+// 0 -> 3
+// 1 -> 3
+// 2 -> 3
+// 3 -> 3
 
-	panic("触发异常")
-}
-
-// 总结
-// defer 先进后出 ，panic 的错误，需要 recover ,但是recover 必须放在defer 函数中
-// 执行结果如下
-// 打印后
-// 打印中
-// 打印前
-// panic: 触发异常
+// 修正代码
+// 	for key, val := range slice {
+//      var value = val
+//		m[key] = &value
+//	}
