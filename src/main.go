@@ -2,43 +2,22 @@ package main
 
 import "fmt"
 
-type S struct {
-}
-
-func f(x interface{}) {
-}
-
-func g(x *interface{}) {
-}
-
-func main1() {
-	s := S{}
-	p := &s
-	f(s) //A
-	//g(s) //B
-	f(p) //C
-	//g(p) //D
-}
-
-type Person struct {
-	age int
-}
-
 func main() {
-	person := &Person{28}
-
-	// 1.
-	defer fmt.Println(person.age) // 28
-
-	// 2.
-	defer func(p *Person) {
-		fmt.Println(p.age) // 28
-	}(person)
-
-	// 3.
-	defer func() {
-		fmt.Println(person.age) // 29
-	}()
-
-	person = &Person{29}
+	defer_call()
 }
+
+func defer_call() {
+	defer func() { fmt.Println("打印前") }()
+	defer func() { fmt.Println("打印中") }()
+	defer func() { fmt.Println("打印后") }()
+
+	panic("触发异常")
+}
+
+// 总结
+// defer 先进后出 ，panic 的错误，需要 recover ,但是recover 必须放在defer 函数中
+// 执行结果如下
+// 打印后
+// 打印中
+// 打印前
+// panic: 触发异常
