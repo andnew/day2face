@@ -2,25 +2,34 @@ package main
 
 import "fmt"
 
-var p *int
+type Direction int
 
-func foo() (*int, error) {
-	var i int = 5
-	return &i, nil
+const (
+	North Direction = iota
+	East
+	South
+	West
+)
+
+func (d Direction) String() string {
+	return [...]string{"North", "East", "South", "West"}[d]
 }
 
-func bar() {
-	//use p
-	fmt.Println(*p)
+func main1() {
+	fmt.Println(South)
+}
+
+type Math struct {
+	x, y int
+}
+
+var m = map[string]Math{
+	"foo": Math{2, 3},
 }
 
 func main() {
-	var err error
-	p, err = foo()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	bar()
-	fmt.Println(*p)
+	math := m["foo"]
+	math.x = 4
+	m["foo"] = math
+	fmt.Println(m["foo"].x)
 }
