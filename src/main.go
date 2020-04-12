@@ -2,6 +2,15 @@ package main
 
 import "fmt"
 
+func hello(i int) {
+	fmt.Println(i)
+}
+func main1() {
+	i := 5
+	defer hello(i)
+	i = i + 10
+}
+
 type People struct{}
 
 func (p *People) ShowA() {
@@ -22,5 +31,5 @@ func (t *Teacher) ShowB() {
 
 func main() {
 	t := Teacher{}
-	t.ShowB()
+	t.ShowA()
 }
