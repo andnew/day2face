@@ -2,30 +2,20 @@ package main
 
 import "fmt"
 
-func main() {
-
-	slice := []int{0, 1, 2, 3}
-	m := make(map[int]*int)
-
-	for key, val := range slice {
-		m[key] = &val
-	}
-
-	for k, v := range m {
-		fmt.Println(k, "->", *v)
-	}
+// 1.
+func main1() {
+	s := make([]int, 5)
+	s = append(s, 1, 2, 3)
+	fmt.Println(s) //[0 0 0 0 0 1 2 3]
 }
 
-// 总结&分析
-// for-range 切片 ，其中for key value 是 内部定义的变量，保持不变
-// 执行结果
-// 0 -> 3
-// 1 -> 3
-// 2 -> 3
-// 3 -> 3
+// 2.
+func main() {
+	s := make([]int, 0)
+	s = append(s, 1, 2, 3, 4)
+	fmt.Println(s) //[1 2 3 4]
+}
 
-// 修正代码
-// 	for key, val := range slice {
-//      var value = val
-//		m[key] = &value
-//	}
+func funcMui(x, y int) (int, error) {
+	return x + y, nil
+}
