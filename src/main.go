@@ -2,34 +2,45 @@ package main
 
 import "fmt"
 
-type Direction int
-
 const (
-	North Direction = iota
-	East
-	South
-	West
+	a = iota
+	b = iota
+)
+const (
+	name = "name"
+	c    = iota
+	d    = iota
 )
 
-func (d Direction) String() string {
-	return [...]string{"North", "East", "South", "West"}[d]
-}
-
 func main1() {
-	fmt.Println(South)
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+	fmt.Println(d)
 }
 
-type Math struct {
-	x, y int
+type People interface {
+	Show()
 }
 
-var m = map[string]Math{
-	"foo": Math{2, 3},
+type Student struct{}
+
+func (stu *Student) Show() {
+
 }
 
 func main() {
-	math := m["foo"]
-	math.x = 4
-	m["foo"] = math
-	fmt.Println(m["foo"].x)
+
+	var s *Student
+	if s == nil {
+		fmt.Println("s is nil")
+	} else {
+		fmt.Println("s is not nil")
+	}
+	var p People = s
+	if p == nil {
+		fmt.Println("p is nil")
+	} else {
+		fmt.Println("p is not nil")
+	}
 }
