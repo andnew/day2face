@@ -2,32 +2,36 @@ package main
 
 import "fmt"
 
-//f1()、f2()、f3() 函数分别返回什么？
-
-func f1() (r int) {
-	defer func() {
-		r++
-	}()
-	return 0
-}
-
-func f2() (r int) {
-	t := 5
-	defer func() {
-		t = t + 5
-	}()
-	return t
-}
-
-func f3() (r int) {
-	defer func(r int) {
-		r = r + 5
-	}(r)
-	return 1
+type Person struct {
+	age int
 }
 
 func main() {
-	fmt.Println("f1() = ", f1())
-	fmt.Println("f2() = ", f2())
-	fmt.Println("f3() = ", f3())
+	person := &Person{28}
+
+	// 1.
+	defer fmt.Println("1  ,  ", person.age) // 28
+
+	// 2.
+	defer func(p *Person) {
+		fmt.Println("2  ,  ", p.age) // 29
+	}(person)
+
+	// 2.1
+	defer func(p Person) {
+		fmt.Println("2.1,  ", p.age) // 28
+	}(*person)
+
+	// 3.
+	defer func() {
+		fmt.Println("3  ,  ", person.age) // 29
+	}()
+
+	person.age = 29
 }
+
+// 执行结果
+// 3  ,   29
+// 2.1,   28
+// 2  ,   29
+// 1  ,   28
