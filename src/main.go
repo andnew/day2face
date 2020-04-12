@@ -2,23 +2,20 @@ package main
 
 import "fmt"
 
+func main1() {
+
+	s1 := []int{1, 2, 3}
+	s2 := s1[1:]             // {2, 3}
+	s2[1] = 4                // {2, 4}
+	fmt.Println(s1)          //{1,2,4}
+	s2 = append(s2, 5, 6, 7) // {1,2,4,5,6,7}
+	fmt.Println(s1)          // {1,2,4}
+}
+
 func main() {
-	a := 1
-	b := 2
-	defer calc("1", a, calc("10", a, b))
-	a = 0
-	defer calc("2", a, calc("20", a, b)) // 20 , 0 , 2 --> 0 , 2
-	b = 1
-}
-
-func calc(index string, a, b int) int {
-	ret := a + b
-	fmt.Println(index, a, b, ret)
-	return ret
-}
-
-// 执行结果
-// 10 1 2 3
-// 20 0 2 2
-//  2 0 2 2
-//  1 1 3 4
+	if a := 1; false {
+	} else if b := 2; false {
+	} else {
+		println(a, b)
+	}
+} // 结果是 1， 2
