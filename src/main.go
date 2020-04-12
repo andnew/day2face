@@ -2,23 +2,25 @@ package main
 
 import "fmt"
 
-type person struct {
-	name string
+type People struct{}
+
+func (p *People) ShowA() {
+	fmt.Println("showA")
+	p.ShowB()
+}
+func (p *People) ShowB() {
+	fmt.Println("showB")
 }
 
-func main1() {
-	var m map[person]int
-	p := person{"mike"}
-	fmt.Println(m[p])
+type Teacher struct {
+	People
 }
 
-func hello(num ...int) {
-	num[0] = 18
+func (t *Teacher) ShowB() {
+	fmt.Println("teacher showB")
 }
 
 func main() {
-	i := []int{5, 6, 7}
-	//hello(i...)
-	hello(i[:]...)
-	fmt.Println(i[0])
+	t := Teacher{}
+	t.ShowB()
 }
