@@ -2,14 +2,33 @@ package main
 
 import "fmt"
 
-type MyInt1 int
-type MyInt2 = int
-
-func main() {
-	var i int = 0
-	var i1 MyInt1 = i // 修改代码 MyInt1(i)
-	var i2 MyInt2 = i
-	fmt.Println(i1, i2)
+func hello() []string {
+	return nil
 }
 
-// 编译报错 Cannot use 'i' (type int) as type MyInt1 in assignment
+func main1() {
+	h := hello
+	if h == nil {
+		fmt.Println("nil")
+	} else {
+		fmt.Println("not nil")
+	}
+}
+
+func GetValue() int {
+	return 1
+}
+
+func main() {
+	i := GetValue()
+	switch i.(type) {
+	case int:
+		println("int")
+	case string:
+		println("string")
+	case interface{}:
+		println("interface")
+	default:
+		println("unknown")
+	}
+}
