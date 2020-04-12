@@ -2,33 +2,23 @@ package main
 
 import "fmt"
 
-func hello() []string {
-	return nil
+type person struct {
+	name string
 }
 
 func main1() {
-	h := hello
-	if h == nil {
-		fmt.Println("nil")
-	} else {
-		fmt.Println("not nil")
-	}
+	var m map[person]int
+	p := person{"mike"}
+	fmt.Println(m[p])
 }
 
-func GetValue() int {
-	return 1
+func hello(num ...int) {
+	num[0] = 18
 }
 
 func main() {
-	i := GetValue()
-	switch i.(type) {
-	case int:
-		println("int")
-	case string:
-		println("string")
-	case interface{}:
-		println("interface")
-	default:
-		println("unknown")
-	}
+	i := []int{5, 6, 7}
+	//hello(i...)
+	hello(i[:]...)
+	fmt.Println(i[0])
 }
