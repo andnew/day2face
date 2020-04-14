@@ -1,35 +1,57 @@
 package main
 
 import (
-	"cs"
-	"fmt"
-	"runtime"
+	log "github.com/sirupsen/logrus"
+	"os"
 )
 
 func main() {
 
-	//1、写出下面代码输出内容
-	//cs.MainCall1()
-	//2、以下代码有什么问题，说明原因
-	//cs.MainCall2()
-	//3、下面的代码会输出什么，并说明原因
-	//cs.MainCall3()
-	//4、下面的代码会输出什么
-	//cs.MainCall4()
-	//5、下面代码会触发异常吗？请详细说明
-	//cs.MainCall5()
-	//6、下面代码输出什么？
-	//cs.MainCall6()
-	//7、请写出以下输入内容
-	//cs.MainCall7()
-	//8、下面的代码有什么问题
-	//cs.MainCall8()
-	//9、下面的迭代会有什么问题？
-	//cs.MainCall9()
-	//10、以下代码能编译过去吗？为什么？
-	cs.MainCall10()
+	demo01()
 }
 
-func init() {
-	fmt.Println("Current Go Version:", runtime.Version())
+// 你可以创建很多instance
+var lgr = log.New()
+
+func demo02() {
+	file, err := os.OpenFile("logrus.log", os.O_CREATE|os.O_WRONLY, 0666)
+	if err == nil {
+		lgr.Out = file
+	} else {
+		lgr.Info("Failed to log to file, using default stderr")
+	}
+	lgr.WithFields(log.Fields{
+		"filename": "123.txt",
+	}).Info("打开文件失败")
+}
+
+// 设置log的参数
+//func init() {
+//	//设置输出样式，自带的只有两种样式logrus.JSONFormatter{}和logrus.TextFormatter{}
+//	log.SetFormatter(&log.TextFormatter{})
+//	//设置output,默认为stderr,可以为任何io.Writer，比如文件*os.File
+//	log.SetOutput(os.Stdout)
+//	//设置最低loglevel
+//	log.SetLevel(log.InfoLevel)
+//
+//}
+
+// 这是一个使用了fields的例子，可以添加多对field
+func demo01() {
+	log.WithFields(log.Fields{
+		"animal": "walrus", "a": 11,
+	}).Info("A walrus appears")
+}
+
+// logrus 日志等级
+func logLevel() {
+
+	log.SetLevel(log.DebugLevel)
+
+	log.Debug("Useful debugging information.")
+	log.Info("Something noteworthy happened!")
+	log.Warn("You should probably take a look at this.")
+	log.Error("Something failed but I'm not quitting.")
+	log.Fatal("Bye.")         //log之后会调用os.Exit(1)
+	log.Panic("I'm bailing.") //log之后会panic()
 }

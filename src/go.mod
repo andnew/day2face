@@ -2,6 +2,6 @@ module main
 
 go 1.13
 
-require cs v0.0.0
+require github.com/sirupsen/logrus v1.5.0
 
-replace cs v0.0.0 => ./cs
+replace github.com/sirupsen/logrus v1.5.0 => github.com/sirupsen/logrus v1.5.0
